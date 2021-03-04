@@ -12,6 +12,7 @@ for file in glob.glob(r"C:\LINHC\VersucheDBs\Trelleborg\2021-01-27-V24\*\*.h5"):
 for file in file_list:
     h51 = h5py.File(file, "r")
     filename = file.split('\\')[-1][:-3]
+
     if 'LEM1' in filename:
         POS = 'pos1'
         SPD = 'spd1'
@@ -63,7 +64,9 @@ for file in file_list:
                         IP2 
     ]
     s21=[[] for _ in range(121)] # s21 for all frequendcies
-
+    
+## load the shifts    
+    shift_opts_freqs = pickle.load( open( "./data/shift_opts_freqs/" +filename + ".pkl", "rb" ) )
 
 ## Find the low speed areas
     low = np.where(h51[SPD][:]>-50)[0]
@@ -85,7 +88,7 @@ for file in file_list:
 
 
 ## create a list of arrays max_sep, each array contains peak values of the corresponding low speed area.
-    max_sep = [] # (46,4)
+    max_sep = []
     for k in range(len(pos_low_sep)):
         # temporary sequency ts
         ts = pos_low_sep[k] 
@@ -117,6 +120,8 @@ for file in file_list:
         s21_low_sep_safe.append((h51[S21][F+max_sep[i][0] : F+max_sep[i][0]+2000, :]).transpose())
 
 
+    
+
 ## data extraction
     for i,Fc in enumerate(Fs):
         F = Fc + max_sep[i][0] 
@@ -132,7 +137,7 @@ for file in file_list:
 
 
 ## save the file as hdf5
-    saved_hdf5 = 'C:/LINHC/VersucheDBs/Trelleborg/2021-01-27-V24/lsa_shifted/' + filename + '_lsa_shifted.h5'
+    saved_hdf5 = 'C:/LINHC/VersucheDBs/Trelleborg/2021-01-27-V24_lsa_shifted/' + filename + '_lsa_shifted.h5'
 
 
     with h5py.File(saved_hdf5, 'w') as f:
