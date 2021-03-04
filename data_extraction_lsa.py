@@ -159,10 +159,10 @@ for file in file_list:
                 key = 's21-'+str(j//2)+'-imag'
             feature_lookup[key] = j
         
-        i = 242
-        for key in setup.keys():
-            feature_lookup[key] = i
-            i += 1
+#         i = 242
+#         for key in setup.keys():
+#             feature_lookup[key] = i
+#             i += 1
 
         f.attrs["feature_lookup"] = json.dumps(feature_lookup)     
         
