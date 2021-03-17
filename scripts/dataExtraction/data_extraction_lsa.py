@@ -5,6 +5,8 @@ import pickle
 import glob
 import itertools
 
+DIR = "C:/LINHC/Software/Python/L737/scribble/xin/trelleborg"
+
 file_list = []
 for file in glob.glob(r"C:\LINHC\VersucheDBs\Trelleborg\2021-01-27-V24\*\*.h5"):
     file_list.append(file)
@@ -66,7 +68,7 @@ for file in file_list:
     s21=[[] for _ in range(121)] # s21 for all frequendcies
     
 ## load the shifts    
-    shift_opts_freqs = pickle.load( open( "./data/shift_opts_freqs/" +filename + ".pkl", "rb" ) )
+    shift_opts_freqs = pickle.load( open( DIR + "/data/shift_opts_freqs/" +filename + ".pkl", "rb" ) )
 
 ## Find the low speed areas
     low = np.where(h51[SPD][:]>-50)[0]
