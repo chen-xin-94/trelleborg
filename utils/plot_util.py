@@ -27,12 +27,12 @@ def plot_gt_pre_overlap(gt,pre):
     fig = plt.figure(figsize =(12,10))
     ax = fig.add_subplot(111)
     ax.plot(gt,label = 'ground truth')
-    ax.plot(pre, label = 'predict', alpha = 0.5)
+    ax.plot(pre, label = 'predict', alpha = 0.5, '.')
     plt.legend()
 
 # (predictioin for X_test and X_train separately) vs (ground truth)  in one plot
 def plot_gt_pre_sep(gt,idx_train,pre_train,idx_test,pre_test):
-    fig = plt.figure(figsize =(16,12))
+    fig = plt.figure(figsize =(12,10))
     ax = fig.add_subplot(111)
     
     ax.plot(gt,label = 'ground truth')
