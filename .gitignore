@@ -3,3 +3,5 @@ models
 data
 .vscode
 test.ipynb
+datasets
+__pycache__

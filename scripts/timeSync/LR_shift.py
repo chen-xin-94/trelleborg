@@ -8,15 +8,19 @@ import pickle
 import glob
 from sklearn.linear_model import LinearRegression
 
-DIR = "C:/LINHC/Software/Python/L737/scribble/xin/trelleborg"
+# DIR = "C:/LINHC/Software/Python/L737/scribble/xin/trelleborg"
+DIR = "/home/xin/projects/trelleborg"
+
+DATASET = "/storage/xin/datasets/Trelleborg/2021-01-27-V24/*/*.h5"
 
 file_list = []
-for file in glob.glob(r"C:\LINHC\VersucheDBs\Trelleborg\2021-01-27-V24\*\*.h5"):
+for file in glob.glob(DATASET):
     file_list.append(file)
 
 for file in file_list:
 ## Loading files
-    filename = file.split('\\')[-1][:-3]
+    # filename = file.split('\\')[-1][:-3]
+    filename = file.split('/')[-1][:-3]
     shift_opts_freqs = pickle.load( open( DIR + "/data/shift_opts_freqs/" +filename + ".pkl", "rb" ) )
     with h5py.File(file, "r") as h51:
         low = np.where(h51['spd1'][:]>-50)[0]
