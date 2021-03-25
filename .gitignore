@@ -4,4 +4,4 @@ data
 .vscode
 test.ipynb
 datasets
-__pycache__
+/scripts/training/__pycache__
