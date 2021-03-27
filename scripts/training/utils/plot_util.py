@@ -27,8 +27,8 @@ def plot_gt_pre_overlap(gt,pre):
     """predictioin vs ground truth in one plot"""
     fig = plt.figure(figsize =(12,10))
     ax = fig.add_subplot(111)
-    ax.plot(gt,label = 'ground truth')
-    ax.plot(pre, '.', label = 'predict', alpha = 0.5)
+    ax.plot(gt,label = 'ground truth',zorder=3)
+    ax.plot(pre, '.', label = 'predict', alpha = 0.5,zorder=1)
     plt.legend()
 
 def plot_gt_pre_sep(gt,idx_train,pre_train,idx_test,pre_test):
@@ -36,9 +36,9 @@ def plot_gt_pre_sep(gt,idx_train,pre_train,idx_test,pre_test):
     fig = plt.figure(figsize =(12,10))
     ax = fig.add_subplot(111)
     
-    ax.plot(gt,label = 'ground truth')
-    ax.plot(idx_train,pre_train,'.', label = 'prediction of training set', alpha = 0.5)
-    ax.plot(idx_test,pre_test,'.', label = 'prediction of test set', alpha = 0.5)
+    ax.plot(gt,label = 'ground truth',zorder=3)
+    ax.plot(idx_train,pre_train,'.', label = 'prediction of training set', alpha = 0.5,zorder=1)
+    ax.plot(idx_test,pre_test,'.', label = 'prediction of test set', alpha = 0.5,zorder=2)
     
     plt.legend()
 
@@ -53,8 +53,8 @@ def plot_gt_pre_overlap_mul(gt,pre,outputs):
     for i,output in enumerate(outputs): 
         ax = plt.subplot(l,1,i+1)
         ax.set_title(output, fontsize=16)
-        ax.plot(gt[i],label = 'ground truth')
-        ax.plot(pre[i], '.', label = 'predict', alpha = 0.5)
+        ax.plot(gt[i],label = 'ground truth',zorder=3)
+        ax.plot(pre[i], '.', label = 'predict', alpha = 0.5,zorder=1)
         ax.legend(bbox_to_anchor=(1.25, 1),loc='upper right')
 
 
@@ -70,7 +70,7 @@ def plot_gt_pre_sep_mul(gt,idx_train,pre_train,idx_test,pre_test,outputs):
     for i,output in enumerate(outputs): 
         ax = plt.subplot(l,1,i+1)
         ax.set_title(output, fontsize=16)
-        ax.plot(gt[i],label = 'ground truth')
-        ax.plot(idx_train,pre_train[i],'.', label = 'prediction of training set', alpha = 0.5)
-        ax.plot(idx_test,pre_test[i],'.', label = 'prediction of test set', alpha = 0.5)
+        ax.plot(gt[i],label = 'ground truth',zorder=3)
+        ax.plot(idx_train,pre_train[i],'.', label = 'prediction of training set', alpha = 0.5,zorder=1)
+        ax.plot(idx_test,pre_test[i],'.', label = 'prediction of test set', alpha = 0.5,zorder=-2)
         ax.legend(bbox_to_anchor=(1.25, 1),loc='upper right')
