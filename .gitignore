@@ -5,3 +5,4 @@ data
 test.ipynb
 datasets
 /scripts/training/utils/__pycache__
+.idea/
