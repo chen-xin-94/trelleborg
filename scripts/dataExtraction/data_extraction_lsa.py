@@ -68,7 +68,7 @@ for file in file_list:
     s21=[[] for _ in range(121)] # s21 for all frequendcies
     
 ## load the shifts    
-    shift_opts_freqs = pickle.load( open( DIR + "/data/shift_opts_freqs/" +filename + ".pkl", "rb" ) )
+    shift_opts_freqs = pickle.load( open( DIR + "/data/V24/shift_opts_freqs/" +filename + ".pkl", "rb" ) )
 
 ## Find the low speed areas
     low = np.where(h51[SPD][:]>-50)[0]
