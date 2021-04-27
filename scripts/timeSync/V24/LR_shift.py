@@ -21,7 +21,7 @@ for file in file_list:
 ## Loading files
     # filename = file.split('\\')[-1][:-3]
     filename = file.split('/')[-1][:-3]
-    shift_opts_freqs = pickle.load( open( DIR + "/data/shift_opts_freqs/" +filename + ".pkl", "rb" ) )
+    shift_opts_freqs = pickle.load( open( DIR + "/data/V24/shift_opts_freqs/" +filename + ".pkl", "rb" ) )
     with h5py.File(file, "r") as h51:
         low = np.where(h51['spd1'][:]>-50)[0]
         # skip the lsa in first 10000 points because some wierd patterns in speed, 
@@ -48,5 +48,5 @@ for file in file_list:
             shift_opts_freqs_all.append(shift)
         shift_opts_freqs_all = np.array(shift_opts_freqs_all).squeeze().round().astype(int)
         assert shift_opts_freqs_all.shape[0] == 121
-        pklName = DIR + '/data/shift_opts_freqs_all/' + filename + '.pkl'
+        pklName = DIR + '/data/V24/shift_opts_freqs_all/' + filename + '.pkl'
         pickle.dump(shift_opts_freqs_all, open(pklName, 'wb')) 
