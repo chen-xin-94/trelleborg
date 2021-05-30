@@ -1,4 +1,5 @@
 import matplotlib.pyplot as plt
+import numpy as np
 import itertools
  
 def plot_loss(history):
@@ -65,7 +66,6 @@ def plot_gt_pre_sep_mul(gt,idx_train,pre_train,idx_test,pre_test,outputs):
     gt = gt.T
     pre_train = pre_train.T
     pre_test = pre_test.T
-    l = len(outputs)
     fig = plt.figure(figsize =(12,8*l))
     for i,output in enumerate(outputs): 
         ax = plt.subplot(l,1,i+1)
@@ -74,3 +74,19 @@ def plot_gt_pre_sep_mul(gt,idx_train,pre_train,idx_test,pre_test,outputs):
         ax.plot(idx_train,pre_train[i],'.', label = 'prediction of training set', alpha = 0.5,zorder=1, color='orange')
         ax.plot(idx_test,pre_test[i],'.', label = 'prediction of test set', alpha = 0.5,zorder=2, color='green')
         ax.legend(bbox_to_anchor=(1.25, 1),loc='upper right')
+        
+
+def plot_one_gt_train_test(gt,pred,idx_train,idx_test,F,L):
+    """
+    (predictioin for X_test and X_train separately) vs (ground truth) for only one output in one plot.
+    Need to define indicies of first point "F" and last point "L" before the function call.
+    The title of the plot is recommended to be printed before the function call.
+    """
+    r = np.arange(F,L)
+    idx_train = np.intersect1d(idx_train,r)
+    idx_test = np.intersect1d(idx_test,r)
+    fig,ax = plt.subplots(1,1,figsize =(12,8))
+    ax.plot(r,gt[r],label = 'ground truth',zorder=3, color='blue')
+    ax.plot(idx_train,pred[idx_train],'.', label = 'prediction of training set', alpha = 0.5,zorder=1, color='orange')
+    ax.plot(idx_test,pred[idx_test],'.', label = 'prediction of test set', alpha = 0.5,zorder=2, color='green')
+    ax.legend(bbox_to_anchor=(1.25, 1),loc='upper right')
