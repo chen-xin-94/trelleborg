@@ -59,21 +59,32 @@ def plot_gt_pre_overlap_mul(gt,pre,outputs):
         ax.legend(bbox_to_anchor=(1.25, 1),loc='upper right')
 
 
-def plot_gt_pre_sep_mul(gt,idx_train,pre_train,idx_test,pre_test,outputs):
+def plot_gt_pre_sep_mul(gt,pre,idx_train,idx_test,outputs,F=84000):
     """(predictioin for X_test and X_train separately) vs (ground truth) 
     for multiple outputs (with names listed in the argument "outputs") in one plot"""
     l = len(outputs)
     gt = gt.T
-    pre_train = pre_train.T
-    pre_test = pre_test.T
+    pre_train = pre[idx_train].T
+    pre_test = pre[idx_test].T
+    pre = pre.T
     fig = plt.figure(figsize =(12,8*l))
     for i,output in enumerate(outputs): 
         ax = plt.subplot(l,1,i+1)
         ax.set_title(output, fontsize=16)
-        ax.plot(gt[i],label = 'ground truth',zorder=3, color='blue')
-        ax.plot(idx_train,pre_train[i],'.', label = 'prediction of training set', alpha = 0.5,zorder=1, color='orange')
-        ax.plot(idx_test,pre_test[i],'.', label = 'prediction of test set', alpha = 0.5,zorder=2, color='green')
-        ax.legend(bbox_to_anchor=(1.25, 1),loc='upper right')
+        if 'pos' in output:
+            L = F+10000 # only plot 10000 points for position
+            idx_com_train = np.intersect1d(idx_train,np.arange(F,L))
+            idx_com_test = np.intersect1d(idx_test,np.arange(F,L))
+            ax.plot(np.arange(F,L),gt[i][F:L],label = 'ground truth',zorder=3, color='blue')
+            ax.plot(idx_com_train,pre[i][idx_com_train],'.', label = 'prediction of training set', alpha = 0.5,zorder=1, color='orange')
+            ax.plot(idx_com_test,pre[i][idx_com_test],'.', label = 'prediction of test set', alpha = 0.5,zorder=2, color='green')
+            ax.legend(bbox_to_anchor=(1.25, 1),loc='upper right')
+        else:
+            ax.plot(gt[i],label = 'ground truth',zorder=3, color='blue')
+            ax.plot(idx_train,pre_train[i],'.', label = 'prediction of training set', alpha = 0.5,zorder=1, color='orange')
+            ax.plot(idx_test,pre_test[i],'.', label = 'prediction of test set', alpha = 0.5,zorder=2, color='green')
+            ax.legend(bbox_to_anchor=(1.25, 1),loc='upper right')
+        
         
 
 def plot_one_gt_train_test(gt,pred,idx_train,idx_test,F,L,title=""):
