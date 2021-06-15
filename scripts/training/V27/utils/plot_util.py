@@ -101,3 +101,22 @@ def plot_one_gt_train_test(gt,pred,idx_train,idx_test,F,L,title=""):
     ax.plot(idx_train,pred[idx_train],'.', label = 'prediction of training set', alpha = 0.5,zorder=1, color='orange')
     ax.plot(idx_test,pred[idx_test],'.', label = 'prediction of test set', alpha = 0.5,zorder=2, color='green')
     ax.legend(bbox_to_anchor=(1.25, 1),loc='upper right')
+
+def plot_one_gt_train_test_dot_rmse(gt,pred,idx_train,idx_test,F,L,title=""):
+    """
+    (predictioin for X_test and X_train separately) vs (ground truth) for only one output in one plot.
+    print test rmse for this section at the end
+    Need to define indicies of first point "F", last point "L", and the title in the argument section
+    """
+
+    r = np.arange(F,L)
+    idx_train = np.intersect1d(idx_train,r)
+    idx_test = np.intersect1d(idx_test,r)
+    fig,ax = plt.subplots(1,1,figsize =(12,8))
+    ax.set_title(title)
+    ax.plot(r,gt[r],'.',label = 'ground truth',zorder=3, color='b')
+    ax.plot(idx_train,pred[idx_train],'.', label = 'prediction of training set', alpha = 0.5,zorder=1, color='orange')
+    ax.plot(idx_test,pred[idx_test],'.', label = 'prediction of test set', alpha = 0.5,zorder=2, color='green')
+    ax.legend(bbox_to_anchor=(1.25, 1),loc='upper right')
+    rmse = np.sqrt(np.mean((gt.squeeze()[idx_test]-pred.squeeze()[idx_test])**2))
+    print(f"test root_mean_squared_error for this section is {rmse}")
